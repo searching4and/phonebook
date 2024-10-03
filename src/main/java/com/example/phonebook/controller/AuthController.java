@@ -1,6 +1,7 @@
 package com.example.phonebook.controller;
 
 import com.example.phonebook.ApiResponse;
+import com.example.phonebook.dto.AuthDto;
 import com.example.phonebook.model.Auth;
 import com.example.phonebook.model.Contact;
 import com.example.phonebook.service.AuthService;
@@ -36,5 +37,10 @@ public class AuthController {
             ApiResponse response = new ApiResponse(e.getMessage(), false, null);
             return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
         }
+    }
+
+    @GetMapping("/{keyword}")
+    public ResponseEntity<AuthDto> findByUsernameOrEmail(@PathVariable String keyword) {
+        return ResponseEntity.ok(authService.findByUsernameOrEmail(keyword));
     }
 }
